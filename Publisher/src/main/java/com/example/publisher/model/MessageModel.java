@@ -1,5 +1,6 @@
 package com.example.publisher.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageModel {
 
+    @JsonSerialize
     private String username;
+    @JsonSerialize
     private String title;
 
 }

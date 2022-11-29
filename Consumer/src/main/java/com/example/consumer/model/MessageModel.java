@@ -1,5 +1,6 @@
 package com.example.consumer.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
 /**
@@ -9,7 +10,9 @@ import lombok.Data;
 @Data
 public class MessageModel {
 
+    @JsonDeserialize
     private String username;
+    @JsonDeserialize
     private String title;
 
 }

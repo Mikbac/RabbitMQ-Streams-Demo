@@ -1,11 +1,13 @@
 package com.example.publisher.configuration;
 
 import com.rabbitmq.stream.Environment;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.rabbit.stream.producer.RabbitStreamTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
+
+import static com.example.publisher.configuration.ConfigConstants.MESSAGE_STREAM;
 
 /**
  * Created by MikBac on 28.11.2022
@@ -15,9 +17,9 @@ import org.springframework.amqp.support.converter.MessageConverter;
 public class RabbitMQConfiguration {
 
     @Bean
-    RabbitStreamTemplate streamTemplate(Environment env) {
-        RabbitStreamTemplate template = new RabbitStreamTemplate(env, "test.stream.one");
-        template.setProducerCustomizer((name, builder) -> builder.name("test"));
+    RabbitStreamTemplate streamTemplate(final Environment environment) {
+        environment.streamCreator().stream(MESSAGE_STREAM).create();
+        RabbitStreamTemplate template = new RabbitStreamTemplate(environment, MESSAGE_STREAM);
         template.setMessageConverter(messageConverter());
         return template;
     }

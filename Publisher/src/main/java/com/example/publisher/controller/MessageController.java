@@ -24,8 +24,8 @@ public class MessageController {
 
     @PostMapping("message")
     public ResponseEntity<Void> receivedMessage(@RequestBody MessageModel message) {
-        log.info("Publish: {}", message.getUsername());
         rabbitStreamTemplate.convertAndSend(message);
+        log.info("Published: {} {}", message.getTitle(), message.getUsername());
         return ResponseEntity.ok().build();
     }
 
